@@ -42,7 +42,7 @@ namespace TechJobsConsole
                     {
                         List<string> results = JobData.FindAll(columnChoice);
 
-                        Console.WriteLine("\n*** All " + columnChoices[columnChoice] + " Values ***");
+                        Console.WriteLine($"\n*** All {columnChoices[columnChoice]} Values ***");
                         foreach (string item in results)
                         {
                             Console.WriteLine(item);
@@ -58,7 +58,7 @@ namespace TechJobsConsole
                     Console.WriteLine("\nSearch term: ");
                     string searchTerm = Console.ReadLine();
 
-                    List<Dictionary<string, string>> searchResults;
+                    List< Dictionary<string, string> > searchResults;
 
                     // Fetch results
                     if (columnChoice.Equals("all"))
@@ -81,14 +81,9 @@ namespace TechJobsConsole
         {
             int choiceIdx;
             bool isValidChoice = false;
-            string[] choiceKeys = new string[choices.Count];
+            string[] choiceKeys = new List<string>(choices.Keys).ToArray();
+            Console.Clear();
 
-            int i = 0;
-            foreach (KeyValuePair<string, string> choice in choices)
-            {
-                choiceKeys[i] = choice.Key;
-                i++;
-            }
 
             do
             {
@@ -100,7 +95,10 @@ namespace TechJobsConsole
                 }
 
                 string input = Console.ReadLine();
-                choiceIdx = int.Parse(input);
+                if (!int.TryParse(input, out choiceIdx)) {
+                    Console.Clear();
+                    continue;
+                }
 
                 if (choiceIdx < 0 || choiceIdx >= choiceKeys.Length)
                 {
