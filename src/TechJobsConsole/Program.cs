@@ -24,7 +24,7 @@ namespace TechJobsConsole
 
             Console.WriteLine("Welcome to LaunchCode's TechJobs App!");
 
-            // Allow user to search/list until they manually quit with ctrl+c
+            // Allow user to search/list until they manually quit with ctrl+c //build a exit option from main menu
             while (true)
             {
 
