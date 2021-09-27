@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace TechJobsConsole
 {
@@ -118,26 +119,38 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            //Console.WriteLine("PrintJobs is not implemented yet");
-            //Console.WriteLine($">> number of jobs { someJobs.Count}");
-
-
-
-            //}
+            
             if (someJobs.Count == 0) {
                 Console.WriteLine("Not Results");
             }
 
-
+            Console.WriteLine();
             for (int i = 0; i < someJobs.Count; i++) {
 
-                Console.WriteLine("****");
+                Console.WriteLine($"*{formatScripts("", 63, '-')}*");
+
                 foreach (KeyValuePair<string, string> job in someJobs[i]) {
-                    Console.WriteLine($">{job.Key}: {job.Value}");
+                    Console.WriteLine($"| {formatScripts(job.Key)}: {formatScripts(job.Value, 43)}|");
                 }
-                Console.WriteLine($"****\n");
+                Console.WriteLine($"*{formatScripts("", 63, '-')}*\n");
+
             }
 
+        }
+
+        private static string formatScripts(string text, int len = 17, char ch = ' ') {
+
+            if (text.Length >= len)
+                return text;
+
+            StringBuilder temp = new StringBuilder(len);
+            temp.Append(text);
+
+            for (int i = len - text.Length; i > 0; i--) {
+                temp.Append(ch);
+            }
+
+            return temp.ToString();
         }
     }
 }
