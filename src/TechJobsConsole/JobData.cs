@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System;
 
 namespace TechJobsConsole
 {
@@ -38,6 +39,30 @@ namespace TechJobsConsole
             return values;
         }
 
+        public static List<Dictionary<string, string>> FindByValue(string value) {
+
+            value = value.ToLower();
+
+            LoadData();
+
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+                
+                foreach (string data in row.Values)
+                {
+                    if( data.ToLower().Contains(value))
+                    {
+                        jobs.Add(row);
+                        continue;
+                    }
+                 }
+            }
+
+            return jobs;
+        }
+
         public static List<Dictionary<string, string>> FindByColumnAndValue(string column, string value)
         {
             // load data, if not already loaded
@@ -49,7 +74,7 @@ namespace TechJobsConsole
             {
                 string aValue = row[column];
 
-                if (aValue.Contains(value))
+                if (aValue.ToLower().Contains(value.ToLower()))
                 {
                     jobs.Add(row);
                 }
@@ -101,6 +126,7 @@ namespace TechJobsConsole
 
             IsDataLoaded = true;
         }
+
 
         /*
          * Parse a single line of a CSV file into a string array
