@@ -41,13 +41,22 @@ namespace TechJobsConsole
                     }
                     else
                     {
-                        List<string> results = JobData.FindAll(columnChoice);
+                        List<string> results = (new List<string>(JobData.FindAll(columnChoice)));
+                        results.Sort();
 
-                        Console.WriteLine($"\n*** All {columnChoices[columnChoice]} Values ***");
+                        string title = $"\n*** All {columnChoices[columnChoice]} Values ***";
+                        title = formatScripts(title, title.Length + 8);
+
+                        Console.WriteLine( title );
+                        Console.WriteLine($" {formatScripts("", title.Length + 2, '-')} ");
+
                         foreach (string item in results)
-                        {
-                            Console.WriteLine(item);
+                        {                            
+                            Console.WriteLine($"| {formatScripts(item, title.Length)} |");
+                            Console.WriteLine($" {formatScripts("", title.Length + 2, '-')} ");
                         }
+
+                        Console.WriteLine();
                     }
                 }
                 else // choice is "search"
@@ -121,7 +130,11 @@ namespace TechJobsConsole
         {
             
             if (someJobs.Count == 0) {
-                Console.WriteLine("Not Results");
+                string label = "Not Result Found!";
+
+                Console.WriteLine($"{formatScripts("", label.Length + 4, '-')}");
+                Console.WriteLine($"| {formatScripts(label)} |");
+                Console.WriteLine($"{formatScripts("", label.Length + 4, '-')}");
             }
 
             Console.WriteLine();
